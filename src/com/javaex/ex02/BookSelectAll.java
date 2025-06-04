@@ -5,13 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookSelectAll {
 
 	public static void main(String[] args) {
 		
-		
-		
+		List<BookAuthorVO> baList = new ArrayList<BookAuthorVO>();
 		
 		// 0. import java.sql.*;
 		Connection conn = null;
@@ -38,7 +39,39 @@ public class BookSelectAll {
 			query += " from book b, author a ";
 			query += " where b.author_id = a.author_id ";
 		    
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			
+			//실행
+			rs = pstmt.executeQuery();
+			
 		    // 4.결과처리
+			while(rs.next()) {
+				
+				
+				//ResultSet 의 데이터를 자바의 변수에 담는다
+				//int authorId = rs.getInt("id");
+				int bookId = rs.getInt("book_id");
+				String title = rs.getString("title");
+				String pubs = rs.getString("pubs");
+				String pubDate = rs.getString("pub_date");
+				int authorId = rs.getInt("author_id");
+				String authorName = rs.getString("author_name");
+				String authorDesc = rs.getString("author_desc");
+				
+				/*
+				//숫자(순서)로 해도 가능함
+				int authorId = rs.getInt(1);
+				String authorName = rs.getString(2);
+				String authorDesc = rs.getString(3);
+				*/
+				
+				//자바의 데이터를 VO로 묶는다
+				BookAuthorVO bookauthorVo = new BookAuthorVO(bookId, title, pubs, pubDate, authorId, authorName, authorDesc);
+				//VO를 리스트에 추가(add) 한다
+				baList.add(bookauthorVo);
+				
+			}
 
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
@@ -61,7 +94,27 @@ public class BookSelectAll {
 		        System.out.println("error:" + e);
 		    }
 
+		}//finally
+		
+		
+		System.out.println("------------------------------------------------");
+		
+		for(int i=0; i<baList.size(); i++) {
+			
+			int bookId = baList.get(i).getBookId();
+			String title = baList.get(i).getTitle();
+			String pubs = baList.get(i).getPubs();
+			String pubDate = baList.get(i).getPubDate();
+			int authorId = baList.get(i).getAuthorId();
+			String authorName = baList.get(i).getAuthorName();
+			String authorDesc = baList.get(i).getAuthorDesc();
+			
+			System.out.println(bookId + ". " + title + " "+ pubs + " " + pubDate + " " + authorId + ". " + authorName + " " + authorDesc);
+			
+			
 		}
-	}
+		System.out.println("------------------------------------------------");	
+		
+	}//main
 
 }
