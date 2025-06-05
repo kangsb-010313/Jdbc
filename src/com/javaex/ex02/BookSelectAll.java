@@ -64,9 +64,13 @@ public class BookSelectAll {
 				BookAuthorVO bookauthorVo = new BookAuthorVO(bookId, title, pubs, pubDate, authorId, authorName, authorDesc);
 				//VO를 리스트에 추가(add) 한다
 				baList.add(bookauthorVo);
+
 				
 			}
 
+			//System.out.println(baList);
+			
+			
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
