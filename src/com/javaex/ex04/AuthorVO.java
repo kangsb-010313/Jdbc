@@ -1,6 +1,5 @@
-package com.javaex.ex03;
+package com.javaex.ex04;
 
-//도구
 public class AuthorVO {
 	
 	//필드
@@ -47,8 +46,6 @@ public class AuthorVO {
 	public String toString() {
 		return "Author [authorId=" + authorId + ", authorName=" + authorName + ", authorDesc=" + authorDesc + "]";
 	}
-	
-	
 	
 
 }
