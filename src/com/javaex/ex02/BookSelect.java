@@ -47,18 +47,11 @@ public class BookSelect {
 				
 				
 				//ResultSet 의 데이터를 자바의 변수에 담는다
-				//int authorId = rs.getInt("id");
 				int bookId = rs.getInt("book_id");
 				String title = rs.getString("title");
 				String pubs = rs.getString("pubs");
 				String pubDate = rs.getString("pub_date");
-				
-				/*
-				//숫자(순서)로 해도 가능함
-				int authorId = rs.getInt(1);
-				String authorName = rs.getString(2);
-				String authorDesc = rs.getString(3);
-				*/
+
 				
 				//자바의 데이터를 VO로 묶는다
 				BookVO bookVo = new BookVO(bookId, title, pubs, pubDate);
