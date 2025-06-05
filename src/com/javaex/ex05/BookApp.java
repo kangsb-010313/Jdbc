@@ -1,5 +1,7 @@
 package com.javaex.ex05;
 
+import java.util.List;
+
 public class BookApp {
 
 	public static void main(String[] args) {
@@ -9,15 +11,22 @@ public class BookApp {
 		BookDAO bookDAO = new BookDAO();
 		
 		// BookVO
+		
 		//int c01 = bookDAO.bookInsert("순정만화", "재미주의", "2011-08-03", 4);
+		
 		//int c02 = bookDAO.bookUpdate("26년", "재미주의", "2012-02-04", 9);
-		int c03 = bookDAO.bookDelete();
+		
+		//int c03 = bookDAO.bookDelete(7);
+		
 		//List<BookVO> bList = bookDAO.bookSelect();
-		//bookDAO.bookSelectOne();
+		//System.out.println(bList);
+		
+		//BookVO bookVo = bookDAO.bookSelectOne(5);
+		//System.out.println(bookVo);
 		
 		////////////////////////////////////////////////
 		// BookAuthorVO 
-		//BookVO bookVo = bookDAO.bookSelectList(); //--> 전체
+		List<BookAuthorVO> baList = bookDAO.bookSelectList(); //--> 전체
 		
 		
 	}
