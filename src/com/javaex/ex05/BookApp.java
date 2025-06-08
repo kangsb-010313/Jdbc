@@ -27,7 +27,7 @@ public class BookApp {
 		////////////////////////////////////////////////
 		// BookAuthorVO 
 		List<BookAuthorVO> baList = bookDAO.bookSelectList(); //--> 전체
-		
+		System.out.println(baList);
 		
 	}
 

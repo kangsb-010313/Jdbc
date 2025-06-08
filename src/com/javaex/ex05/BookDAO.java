@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class BookDAO {
 
 	// 필드
@@ -302,13 +303,68 @@ public class BookDAO {
 	//책, 작가 전체 정보 조회
 	public List<BookAuthorVO> bookSelectList() {
 		
+		List<BookAuthorVO> baList = new ArrayList<BookAuthorVO>();
+		
 		// 0. import java.sql.*;
 
 		// 1. JDBC 드라이버 (Oracle) 로딩
 		// 2. Connection 얻어오기
 		this.connect();
 		
+
+		try {
+
+		    // 3. SQL문 준비 / 바인딩 / 실행
+			String query = "";
+			query += " select  b.book_id, ";
+			query += " 		   b.title, ";
+			query += " 		   b.pubs, ";
+			query += " 		   b.pub_date, ";
+			query += " 		   a.author_id, ";
+			query += " 		   a.author_name, ";
+			query += " 		   a.author_desc ";
+			query += " from book b, author a ";
+			query += " where b.author_id = a.author_id ";
+			//System.out.println(query);
+		    
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			
+			//실행
+			rs = pstmt.executeQuery();
+			
+		    // 4.결과처리
+			while(rs.next()) {
+				
+				
+				//ResultSet 의 데이터를 자바의 변수에 담는다
+				int bookId = rs.getInt("book_id");
+				String title = rs.getString("title");
+				String pubs = rs.getString("pubs");
+				String pubDate = rs.getString("pub_date"); //자바에서는 날짜를 String 취급하면 된다
+				int authorId = rs.getInt("author_id");
+				String authorName = rs.getString("author_name");
+				String authorDesc = rs.getString("author_desc");
+				
+				
+				//자바의 데이터를 VO로 묶는다
+				BookAuthorVO bookAuthorVo = new BookAuthorVO(bookId, title, pubs, pubDate, authorId, authorName, authorDesc);
+				//VO를 리스트에 추가(add) 한다
+				baList.add(bookAuthorVo);
+
+				
+			}
+
+			//System.out.println(baList);
+			
+			
+		} catch (SQLException e) {
+		    System.out.println("error:" + e);
+		} 
 		
+		this.close();
+		
+		return baList;
 	}
 	
 	
